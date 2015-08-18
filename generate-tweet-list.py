@@ -1,3 +1,5 @@
+#in this file, we'll create a file with tweets in it
+
 import Queue
 import re
 previousWords = Queue.Queue(maxsize = 10)
@@ -5,8 +7,11 @@ afterWords = []
 hasFoundBoy = False
 
  #dictionary to switch pronouns. unfortunately it can't distinguish btwn NP "his" and determiner "his"
-pronouns = {r'he':'she', r'him.':'her', r'his':'her', r'he\'.':'she\'', r'himself.':'herself', 
-	    r'[\"\']*He':'She', r'[\"\']*Him.':'Her', r'[\"\']*His':'Her', r'[\"\']*He\'.':'She\'', r'[\"\']*Himself.':'Herself'}
+ #I added in the /b's. They mean that the string can only match at the beginning or end of a word 
+ #(or both, if you put it on both ends). This fixes cases where "heartbeat" or "her" (!!!) were 
+ #matching "he", etc
+pronouns = {r'\bhe\b':'she', r'\bhim.':'her', r'\bhis\b':'her', r'\bhe\'.':'she\'', r'\bhimself.':'herself', 
+	    r'[\"\']*He\b':'She', r'[\"\']*Him.':'Her', r'[\"\']*His\b':'Her', r'[\"\']*He\'.':'She\'', r'[\"\']*Himself.':'Herself'}
 
 def is_boy_match(word):
    is_match = re.match(r'[\"\']*boy.', word, re.I)
