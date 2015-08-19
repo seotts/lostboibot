@@ -21,14 +21,14 @@ def is_boy_match(word):
  
 with open("one-line-text.txt", 'r') as f:
   for line in f:
+    sentence = ''
     for word in line.split():
       if is_boy_match(word):
 
 
         hasFoundBoy = True
 
-        sentence = ''
-
+       
         #add previous words
         while not previousWords.empty():
           #maybe we can check if previousWords.get() ==boy?
@@ -52,6 +52,7 @@ with open("one-line-text.txt", 'r') as f:
             sentence = sentence + " " + word
           else:
              print sentence
+             sentence = ''
              hasFoundBoy = False
         else:
           previousWords.put(word)
