@@ -14,7 +14,9 @@ pronouns = {r'\bhe\b':'she', r'\bhim.':'her', r'\bhis\b':'her', r'\bhe\'.':'she\
         r'[\"\']*He\b':'She', r'[\"\']*Him.':'Her', r'[\"\']*His\b':'Her', r'[\"\']*He\'.':'She\'', r'[\"\']*Himself.':'Herself'}
 
 def is_boy_match(word):
-   is_match = re.match(r'[\"\']*boy.', word, re.I)
+   # is_match = re.match(r'[\"\']*boy.', word, re.I)
+   is_match = re.match(r'[\"\']*boy[.]*', word, re.I)
+   # is_match = re.match(r'[\"\']*[Bb]oy.', word, re.I)
    return is_match
  
 with open("one-line-text.txt", 'r') as f:
@@ -49,9 +51,6 @@ with open("one-line-text.txt", 'r') as f:
           if(len(sentence) + len(word) < 140):
             sentence = sentence + " " + word
           else:
-             for w in sentence.split():
-               if is_boy_match(w):
-                 print "!!" # never prints this...hmmm
              print sentence
              hasFoundBoy = False
         else:
