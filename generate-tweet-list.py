@@ -49,6 +49,9 @@ with open("one-line-text.txt", 'r') as f:
           if(len(sentence) + len(word) < 140):
             sentence = sentence + " " + word
           else:
+             for w in sentence.split():
+               if is_boy_match(w):
+                 print "!!" # never prints this...hmmm
              print sentence
              hasFoundBoy = False
         else:
