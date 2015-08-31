@@ -8,4 +8,10 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-api.update_status(status=  "This is a test!!!" )
+with open("tweet-list.txt", 'r') as fin:
+    data = fin.read().splitlines(True)
+    # tweet the first line!
+    api.update_status(status = data[0])
+# now delete the first line
+with open("tweet-list.txt", 'w') as fout:
+    fout.writelines(data[1:])
