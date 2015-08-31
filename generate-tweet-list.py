@@ -46,7 +46,7 @@ with open("tweet-list.txt", 'w') as write_file:
 	      else:
 	        for p in pronouns.keys():
 	          if re.match(p, word):
-	            word = "*" + pronouns[p] + "*"
+	            word = pronouns[p]
 	        if hasFoundBoy:
 	          if(len(sentence) + len(word) < 140):
 	            sentence = sentence + " " + word
