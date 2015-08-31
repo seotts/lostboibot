@@ -18,45 +18,47 @@ def is_boy_match(word):
    is_match = re.match(r'[\"\']*boy[.]*', word, re.I)
    # is_match = re.match(r'[\"\']*[Bb]oy.', word, re.I)
    return is_match
- 
-with open("one-line-text.txt", 'r') as f:
-  for line in f:
-    sentence = ''
-    for word in line.split():
-      if is_boy_match(word):
+with open("tweet-list.txt", 'w') as write_file:
+	with open("one-line-text.txt", 'r') as f:
+	  for line in f:
+	    sentence = ''
+	    for word in line.split():
+	      if is_boy_match(word):
 
 
-        hasFoundBoy = True
+	        hasFoundBoy = True
 
-       
-        #add previous words
-        while not previousWords.empty():
-          #maybe we can check if previousWords.get() ==boy?
-          sentence = sentence + " " + previousWords.get() + " "
+	       
+	        #add previous words
+	        while not previousWords.empty():
+	          #maybe we can check if previousWords.get() ==boy?
+	          sentence = sentence + " " + previousWords.get() + " "
 
-        #add "boi"
-        if word[0] in ['\"', '\'']:
-          sentence = sentence + word[:3] + "i" + word[4:]
+	        #add "boi"
+	        if word[0] in ['\"', '\'']:
+	          sentence = sentence + word[:3] + "i" + word[4:]
 
-        else:
-          sentence = sentence + word[:2] + "i" + word[3:]
+	        else:
+	          sentence = sentence + word[:2] + "i" + word[3:]
 
-        #add next words
+	        #add next words
 
-      else:
-        for p in pronouns.keys():
-          if re.match(p, word):
-            word = "*" + pronouns[p] + "*"
-        if hasFoundBoy:
-          if(len(sentence) + len(word) < 140):
-            sentence = sentence + " " + word
-          else:
-             print sentence
-             sentence = ''
-             hasFoundBoy = False
-        else:
-          previousWords.put(word)
-          if previousWords.full():
-            previousWords.get()
-        #print previousWords
-   
+	      else:
+	        for p in pronouns.keys():
+	          if re.match(p, word):
+	            word = "*" + pronouns[p] + "*"
+	        if hasFoundBoy:
+	          if(len(sentence) + len(word) < 140):
+	            sentence = sentence + " " + word
+	          else:
+	             print sentence
+	             write_file.write(sentence)
+	             write_file.write("\n")
+	             sentence = ''
+	             hasFoundBoy = False
+	        else:
+	          previousWords.put(word)
+	          if previousWords.full():
+	            previousWords.get()
+	        #print previousWords
+	   
